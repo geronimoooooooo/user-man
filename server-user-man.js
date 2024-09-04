@@ -60,7 +60,7 @@ if(process.env.MACHINE=='vm04'){
       console.log(new Date().toISOString()+` https server on MACHINE ${process.env.MACHINE} could not start on port: ${portHTTPS}`);
     }else{
       console.log(new Date().toISOString()+` https server running on ${process.env.MACHINE} port: ${portHTTPS}`);
-      console.log(new Date().toISOString()+` call: https://localhost:443`);
+      console.log(new Date().toISOString()+` call: localhost:443 in Mozilla`);
     }
   });
 
