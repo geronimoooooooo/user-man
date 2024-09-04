@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express    = require('express');
 const fs         = require('fs');
 const path       =  require('path')
@@ -29,10 +30,10 @@ app.get('/', (req, res) => {
 //#endregion
 
 //set NODE_OPTIONS=--openssl-legacy-provider in cmd in VS;read magic wiki
-const credentials = {
+if(process.env.MACHINE=='vm04'){
+  const credentials = {
     pfx: fs.readFileSync(path.join(__dirname,'sslcert', 'STAR_researchstudio_at.pfx'))
   };
-  
   const portHTTPS = process.env.PORTHTTPS || 443
   const httpsServer = https.createServer(credentials, app);
   
@@ -45,10 +46,23 @@ const credentials = {
   httpsServer.listen(portHTTPS, (err) => {
     if(err){
       console.log("Error: ", err);
-      console.log(new Date().toISOString()+` https server could not start on port: ${portHTTPS}`);
+      console.log(new Date().toISOString()+` https server could not start on ${process.env.MACHINE} port: ${portHTTPS}`);
     }else{
-      console.log(new Date().toISOString()+` https server running on port: ${portHTTPS}`);
+      console.log(new Date().toISOString()+` https server running on ${process.env.MACHINE} port: ${portHTTPS}`);
       console.log(new Date().toISOString()+` call: https://ispacevm04.researchstudio.at/main`);
     }
   });
+} else{
+  const portHTTPS = process.env.PORTHTTPS || 443
+  app.listen(portHTTPS, (err) => {
+    if(err){
+      console.log("Error: ", err);
+      console.log(new Date().toISOString()+` https server on MACHINE ${process.env.MACHINE} could not start on port: ${portHTTPS}`);
+    }else{
+      console.log(new Date().toISOString()+` https server running on ${process.env.MACHINE} port: ${portHTTPS}`);
+      console.log(new Date().toISOString()+` call: https://localhost:443`);
+    }
+  });
+
+}
   //#endregion
