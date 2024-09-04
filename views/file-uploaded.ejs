@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head><%- include ('partials/head', {titlePage:"Datei hochgeladen"}) %></head>
+
+  <body class="container">       
+    <header><%- include ('partials/header') %></header>  
+    <nav><%- include ('partials/nav') %></nav>
+    <main>    
+      <p><%= textIntro %></p>
+
+      <p class="pt-5">Inhalt der Konfigurationsdatei:</p>
+      <p><pre><%=configFileText %></pre></p>
+      
+    </main>      
+    <footer><%- include('partials/footer') %></footer>
+    <script src="/j_js.js"></script>
+  </body>
+</html>
